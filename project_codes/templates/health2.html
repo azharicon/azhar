@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Diagnosis System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #ADD8E6;
+            color: light blue;
+            padding: 10px 0;
+        }
+        .container {
+            padding: 30px;
+        }
+        .doctor-img {
+            width: 300px;
+            border-radius: 300%;
+        }
+        .disease-info {
+            margin: 20px 0;
+        }
+        .disease-info h3 {
+            color: #4682b4;
+        }
+        .diagnosis-link {
+            background-color: #008080;
+            color: blue green;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Health Diagnosis System</h1>
+    </header>
+    <div class="container">
+        <img src="{{ url_for('static', filename='doctor.jpeg') }}" alt="Doctor" class="doctor-img">
+        <div class="disease-info">
+            <h3>Common Diseases</h3>
+            <p><strong>Influenza (Flu):</strong> Symptoms include fever, cough, sore throat, runny or stuffy nose, body aches, headache, chills, and fatigue.</p>
+            <p><strong>Dengue Fever:</strong> Symptoms include high fever, headache, vomiting, muscle and joint pains, and a characteristic skin rash.</p>
+            <p><strong>Malaria:</strong> Symptoms include fever, tiredness, vomiting, and headaches. In severe cases, it can cause yellow skin, seizures, coma, or death.</p>
+        </div>
+        <a href="/diagnosis" class="diagnosis-link">Click to Get Diagnosis</a>
+    </div>
+</body>
+</html>

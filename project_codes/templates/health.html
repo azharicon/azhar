@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disease Prediction</title>
+</head>
+<body>
+    <h2>Enter your symptoms separated by commas (e.g., headache, fever)</h2>
+    <form action="/predict" method="post">
+        <input type="text" name="symptoms" required>
+        <input type="submit" value="Predict">
+    </form>
+    <h2>{{ prediction_text }}</h2>
+</body>
+</html>

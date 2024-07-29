@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dementia Prediction</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #e0f7fa; /* Light blue background */
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .drag-drop {
+            border: 2px dashed #007bff;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #007bff;
+        }
+        .drag-drop:hover {
+            background-color: #e3f2fd;
+        }
+        .drag-drop.drag-over {
+            background-color: #bbdefb;
+        }
+        .info {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Dementia Prediction</h1>
+
+        <div class="info">
+            <p>Dementia is a general term for a decline in mental ability severe enough to interfere with daily life. Alzheimer's disease is the most common cause of dementia. Here, you can upload a brain MRI image to predict the type of dementia.</p>
+            <p>Types of dementia predicted by this model:</p>
+            <ul>
+                <li>Mild Demented</li>
+                <li>Moderate Demented</li>
+                <li>Non Demented</li>
+                <li>Very Mild Demented</li>
+                <li>Non-Brain Image (Error)</li>
+            </ul>
+        </div>
+
+        <form id="uploadForm" method="post" enctype="multipart/form-data">
+            <div class="drag-drop" id="drop-area">
+                Drag and drop an image file here or click to select a file
+            </div>
+            <input type="file" id="fileInput" name="file" accept="image/*" hidden>
+            <button type="submit" class="btn btn-primary mt-3">Upload and Predict</button>
+        </form>
+
+        {% if prediction %}
+        <h3 class="mt-4 text-center">Prediction: {{ prediction }}</h3>
+        {% endif %}
+    </div>
+
+    <script>
+        const dropArea = document.getElementById('drop-area');
+        const fileInput = document.getElementById('fileInput');
+
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+
+        // Highlight drop area when item is dragged over it
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, () => dropArea.classList.add('drag-over'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, () => dropArea.classList.remove('drag-over'), false);
+        });
+
+        // Handle drop
+        dropArea.addEventListener('drop', handleDrop, false);
+
+        // Open file dialog when click on drop area
+        dropArea.addEventListener('click', () => fileInput.click());
+
+        // Handle file input change
+        fileInput.addEventListener('change', () => {
+            const files = fileInput.files;
+            handleFiles(files);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function handleDrop(e) {
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                fileInput.files = files;  // Set files to input element for form submission
+                flashMessage('File selected: ' + files[0].name, 'success');
+            }
+        }
+
+        function flashMessage(message, category) {
+            const flashElement = document.createElement('div');
+            flashElement.className = `alert alert-${category}`;
+            flashElement.innerText = message;
+            document.querySelector('.container').insertAdjacentElement('afterbegin', flashElement);
+            setTimeout(() => flashElement.remove(), 3000);
+        }
+    </script>
+</body>
+</html>

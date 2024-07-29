@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnosis Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #4682b4;
+            color: white;
+            padding: 10px 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        .result {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Diagnosis Result</h1>
+    </header>
+    <div class="container">
+        <div class="result">
+            <p>{{ prediction_text }}</p>
+        </div>
+        <a href="/diagnosis">Back to Diagnosis</a>
+    </div>
+</body>
+</html>
